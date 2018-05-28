@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">elementLibrary</string>
+    <string name="package_sign_error">您使用的是盗版%s客户端,请去应用市场下载正版APP</string>
+</resources>

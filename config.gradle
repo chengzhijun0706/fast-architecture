@@ -1,0 +1,101 @@
+ext {
+
+    android = [
+            compileSdkVersion: 27,
+            buildToolsVersion: "27.0.3",
+            minSdkVersion    : 14,
+            targetSdkVersion : 27,
+            versionCode      : 1,
+            versionName      : "1.0.0"
+    ]
+
+    version = [
+            androidSupportSdkVersion : "27.1.0",
+            okhttpSdkVersion         : "3.10.0",
+            retrofitSdkVersion       : "2.4.0",
+            dagger2SdkVersion        : "2.15",
+            glideSdkVersion          : "4.6.1",
+            butterknifeSdkVersion    : "8.8.1",
+            rxjavaSdkVersion         : "2.1.12",
+            rxandroidSdkVersion      : "2.0.2",
+            rxcacheSdkVersion        : "1.8.3-2.x",
+            rxpermissionsSdkVersion  : "0.9.5@aar",
+            rxerrorhandlerSdkVersion : "2.1.1",
+            rxlifecycleSdkVersion    : "1.0",
+            rxlifecycle2SdkVersion   : "2.2.1",
+            espressoSdkVersion       : "3.0.1",
+            canarySdkVersion         : "1.5.4",
+            androideventbusSdkVersion: "1.0.5.1",
+            loggerSdkVersion         : "2.2.0",
+            gsonSdkVersion           : "2.8.2"
+    ]
+
+    dependencies = [
+            //support
+            "appcompat-v7"             : "com.android.support:appcompat-v7:${version["androidSupportSdkVersion"]}",
+            "design"                   : "com.android.support:design:${version["androidSupportSdkVersion"]}",
+            "support-v4"               : "com.android.support:support-v4:${version["androidSupportSdkVersion"]}",
+            "cardview-v7"              : "com.android.support:cardview-v7:${version["androidSupportSdkVersion"]}",
+            "annotations"              : "com.android.support:support-annotations:${version["androidSupportSdkVersion"]}",
+            "recyclerview-v7"          : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
+
+            //network
+            "retrofit"                 : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",
+            "retrofit-converter-gson"  : "com.squareup.retrofit2:converter-gson:${version["retrofitSdkVersion"]}",
+            "retrofit-adapter-rxjava2" : "com.squareup.retrofit2:adapter-rxjava2:${version["retrofitSdkVersion"]}",
+            "okhttp3"                  : "com.squareup.okhttp3:okhttp:${version["okhttpSdkVersion"]}",
+            "glide"                    : "com.github.bumptech.glide:glide:${version["glideSdkVersion"]}",
+            "glide-compiler"           : "com.github.bumptech.glide:compiler:${version["glideSdkVersion"]}",
+            "glide-loader-okhttp3"     : "com.github.bumptech.glide:okhttp3-integration:${version["glideSdkVersion"]}",
+            "glide-transformations"    : "jp.wasabeef:glide-transformations:3.0.1",
+            "stetho"                   : "com.facebook.stetho:stetho:1.4.2",
+            "stetho-okhttp3"           : "com.facebook.stetho:stetho-okhttp3:1.4.2",
+
+            //view
+            "autolayout"               : "com.zhy:autolayout:1.4.5",
+            "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
+            "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
+            "RecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30",
+            "SmartRefreshLayout"       : "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5",
+            "pickerview"               : "com.contrarywind:Android-PickerView:3.2.5",
+            "photoview"                : "com.github.chrisbanes.photoview:library:1.2.3",
+            "numberprogressbar"        : "com.daimajia.numberprogressbar:library:1.2@aar",
+            "nineoldandroids"          : "com.nineoldandroids:library:2.4.0",
+            "paginate"                 : "com.github.markomilos:paginate:0.5.1",
+            "vlayout"                  : "com.alibaba.android:vlayout:1.1.0@aar",
+            "constraint-layout"        : "com.android.support.constraint:constraint-layout:1.1.0",
+
+            //rx2
+            "rxandroid2"               : "io.reactivex.rxjava2:rxandroid:${version["rxandroidSdkVersion"]}",
+            "rxjava2"                  : "io.reactivex.rxjava2:rxjava:${version["rxjavaSdkVersion"]}",
+            "rxlifecycle2"             : "com.trello.rxlifecycle2:rxlifecycle:${version["rxlifecycle2SdkVersion"]}",
+            "rxlifecycle2-android"     : "com.trello.rxlifecycle2:rxlifecycle-android:${version["rxlifecycle2SdkVersion"]}",
+            "rxlifecycle2-components"  : "com.trello.rxlifecycle2:rxlifecycle-components:${version["rxlifecycle2SdkVersion"]}",
+            "rxcache2"                 : "com.github.VictorAlbertos.RxCache:runtime:${version["rxcacheSdkVersion"]}",
+            "rxcache-jolyglot-gson"    : "com.github.VictorAlbertos.Jolyglot:gson:0.0.3",
+            "rxpermissions2"           : "com.tbruyelle.rxpermissions2:rxpermissions:${version["rxpermissionsSdkVersion"]}",
+            "rxerrorhandler2"          : "me.jessyan:rxerrorhandler:${version["rxerrorhandlerSdkVersion"]}",
+
+            //tools
+            "dagger2"                  : "com.google.dagger:dagger:${version["dagger2SdkVersion"]}",
+            "dagger2-android"          : "com.google.dagger:dagger-android:${version["dagger2SdkVersion"]}",
+            "dagger2-android-support"  : "com.google.dagger:dagger-android-support:${version["dagger2SdkVersion"]}",
+            "dagger2-compiler"         : "com.google.dagger:dagger-compiler:${version["dagger2SdkVersion"]}",
+            "dagger2-android-processor": "com.google.dagger:dagger-android-processor:${version["dagger2SdkVersion"]}",
+            "androideventbus"          : "org.simple:androideventbus:1.0.5.1",
+            "gson"                     : "com.google.code.gson:gson:2.8.2",
+            "multidex"                 : "com.android.support:multidex:1.0.1",
+            "javax.annotation"         : "javax.annotation:jsr250-api:1.0",
+            "progressmanager"          : "me.jessyan:progressmanager:1.5.0",
+            "retrofit-url-manager"     : "me.jessyan:retrofit-url-manager:1.2.5",
+            "lifecyclemodel"           : "me.jessyan:lifecyclemodel:1.0.1",
+            "timber"                   : "com.jakewharton.timber:timber:4.7.0",
+            "logger"                   : "com.orhanobut:logger:2.2.0",
+            "canary-debug"             : "com.squareup.leakcanary:leakcanary-android:${version["canarySdkVersion"]}",
+            "canary-release"           : "com.squareup.leakcanary:leakcanary-android-no-op:${version["canarySdkVersion"]}",
+            "umeng-analytics"          : "com.umeng.analytics:analytics:6.0.1",
+            "utilcode"                 : "com.blankj:utilcode:1.15.0"
+    ]
+
+
+}
