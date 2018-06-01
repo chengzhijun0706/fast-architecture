@@ -123,7 +123,7 @@ public class BaseApplication extends Application implements App {
     /**
      * 将 {@link AppComponent} 返回出去, 供其它地方使用, {@link AppComponent} 接口中声明的方法所返回的实例, 在 {@link #getAppComponent()} 拿到对象后都可以直接使用
      *
-     * @see Utils#obtainAppComponentFromContext(Context) 可直接获取 {@link AppComponent}
+     * @see com.justdoit.elementlibrary.utils.Utils#obtainAppComponentFromContext(Context) 可直接获取 {@link AppComponent}
      * @return AppComponent
      */
     @NonNull

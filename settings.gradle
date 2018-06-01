@@ -1,1 +1,1 @@
-include ':app', ':elementlibrary'
+include ':app', ':fast-architecture'

@@ -193,7 +193,7 @@ public class AppDelegate implements App, AppLifecycles {
      * 将 {@link AppComponent} 返回出去, 供其它地方使用, {@link AppComponent} 接口中声明的方法返回的实例, 在 {@link #getAppComponent()} 拿到对象后都可以直接使用
      *
      * @return AppComponent
-     * @see Utils#obtainAppComponentFromContext(Context) 可直接获取 {@link AppComponent}
+     * @see com.justdoit.elementlibrary.utils.Utils#obtainAppComponentFromContext(Context) 可直接获取 {@link AppComponent}
      */
     @NonNull
     @Override

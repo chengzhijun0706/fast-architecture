@@ -52,7 +52,7 @@ dependencies {
         exclude module: 'support-annotations'
     }
 
-    implementation project(':elementlibrary')
+    implementation 'com.github.chengzhijun0706:fast-architecture:1.0.0'
 
     debugImplementation rootProject.ext.dependencies["canary-debug"]
     releaseImplementation rootProject.ext.dependencies["canary-release"]

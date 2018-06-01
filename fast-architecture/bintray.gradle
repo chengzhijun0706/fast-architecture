@@ -1,27 +1,21 @@
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
-Properties properties = new Properties()
-boolean isHasFile = false
-if (project.rootProject.findProject('local.properties') != null){
-    isHasFile = true
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-}
-
-def gitUrl = ''   // Git仓库的url
-def siteUrl = ''   // 项目的主页
+def gitUrl = 'https://github.com/chengzhijun0706/fast-architecture.git'   // Git仓库的url
+def siteUrl = 'https://github.com/chengzhijun0706/fast-architecture'   // 项目的主页
 
 version = rootProject.ext.android["versionName"]
-group = "element"
+group = "com.github.chengzhijun0706"
 
-
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 bintray {
-    user = isHasFile ? properties.getProperty("bintray.user") : System.getenv("bintray_user")
-    key = isHasFile ? properties.getProperty("bintray.apikey") : System.getenv("bintray_apikey")
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
 
     pkg {
         repo = 'maven'
-        name = 'MVPSDK'
+        name = 'fast-architecture'
         licenses = ["Apache-2.0"]
         websiteUrl = siteUrl
         vcsUrl = gitUrl
@@ -47,7 +41,7 @@ install {
             project {
                 packaging 'aar'
                 // Add your description here
-                name 'MVPArms'
+                name 'fast-architecture'
                 description 'A common Architecture for Android Applications developing based on MVP，integrates many Open Source Projects( like Dagger2,RxJava,Retrofit... ),to make your developing quicker and easier.'
                 url siteUrl
                 // Set your license
@@ -59,7 +53,7 @@ install {
                 }
                 developers {
                     developer {
-                        id 'chengzhijun0706'        //填写bintray或者github的用户名
+                        id 'element'        //填写bintray或者github的用户名
                         name 'chengzhijun'         //姓名，可以是中文
                         email 'chengzhijun1024@gmail.com'
                     }
@@ -80,12 +74,18 @@ task sourcesJar(type: Jar) {
 }
 task javadoc(type: Javadoc) {
     failOnError false
+    options.encoding="utf-8"
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
+}
+
+task copyDoc(type: Copy) {
+    from "${buildDir}/docs/"
+    into "docs"
 }
 artifacts {
     archives javadocJar

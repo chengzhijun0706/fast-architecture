@@ -28,12 +28,9 @@ android {
     retrolambda {
         defaultMethods = true
     }
-}
 
-
-buildscript {
-    repositories {
-        jcenter()
+    lintOptions {
+        abortOnError false
     }
 }
 
