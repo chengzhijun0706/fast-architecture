@@ -352,10 +352,10 @@ public class SingleConfig {
 
         private int filteColor; //滤镜颜色
 
-        public int animationId; //动画资源id
-        public int animationType; //动画资源Type
-        public Animator animator; //动画资源
-        public Animation animation; //动画资源
+        private int animationId; //动画资源id
+        private int animationType; //动画资源Type
+        private Animator animator; //动画资源
+        private Animation animation; //动画资源
 
         public ConfigBuilder(Context context) {
             this.context = context;
