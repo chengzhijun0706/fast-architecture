@@ -16,6 +16,9 @@
 package com.justdoit.elementlibrary.http.log;
 
 import android.text.TextUtils;
+import android.util.Log;
+
+import com.justdoit.elementlibrary.di.module.GlobalConfigModule;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +26,7 @@ import org.json.JSONObject;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.transform.OutputKeys;
@@ -35,7 +39,6 @@ import javax.xml.transform.stream.StreamSource;
 
 import okhttp3.MediaType;
 import okhttp3.Request;
-import timber.log.Timber;
 
 /**
  * ================================================
@@ -88,12 +91,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
     public void printJsonRequest(Request request, String bodyString) {
         final String requestBody = LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + bodyString;
         final String tag = getTag(true);
-
-        Timber.tag(tag).i(REQUEST_UP_LINE);
+        Log.i(tag, REQUEST_UP_LINE);
         logLines(tag, new String[]{URL_TAG + request.url()}, false);
         logLines(tag, getRequest(request), true);
         logLines(tag, requestBody.split(LINE_SEPARATOR), true);
-        Timber.tag(tag).i(END_LINE);
+        Log.i(tag, END_LINE);
     }
 
     /**
@@ -104,12 +106,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
     @Override
     public void printFileRequest(Request request) {
         final String tag = getTag(true);
-
-        Timber.tag(tag).i(REQUEST_UP_LINE);
+        Log.i(tag, REQUEST_UP_LINE);
         logLines(tag, new String[]{URL_TAG + request.url()}, false);
         logLines(tag, getRequest(request), true);
         logLines(tag, OMITTED_REQUEST, true);
-        Timber.tag(tag).i(END_LINE);
+        Log.i(tag, END_LINE);
     }
 
     /**
@@ -135,11 +136,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
         final String tag = getTag(false);
         final String[] urlLine = {URL_TAG + responseUrl, N};
 
-        Timber.tag(tag).i(RESPONSE_UP_LINE);
+        Log.i(tag, RESPONSE_UP_LINE);
         logLines(tag, urlLine, true);
         logLines(tag, getResponse(headers, chainMs, code, isSuccessful, segments, message), true);
         logLines(tag, responseBody.split(LINE_SEPARATOR), true);
-        Timber.tag(tag).i(END_LINE);
+        Log.i(tag, END_LINE);
     }
 
     /**
@@ -159,11 +160,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
         final String tag = getTag(false);
         final String[] urlLine = {URL_TAG + responseUrl, N};
 
-        Timber.tag(tag).i(RESPONSE_UP_LINE);
+        Log.i(tag, RESPONSE_UP_LINE);
         logLines(tag, urlLine, true);
         logLines(tag, getResponse(headers, chainMs, code, isSuccessful, segments, message), true);
         logLines(tag, OMITTED_RESPONSE, true);
-        Timber.tag(tag).i(END_LINE);
+        Log.i(tag, END_LINE);
     }
 
 
@@ -182,7 +183,7 @@ public class DefaultFormatPrinter implements FormatPrinter {
                 int start = i * MAX_LONG_SIZE;
                 int end = (i + 1) * MAX_LONG_SIZE;
                 end = end > line.length() ? line.length() : end;
-                Timber.tag(resolveTag(tag)).i(DEFAULT_LINE + line.substring(start, end));
+                Log.i(resolveTag(tag), DEFAULT_LINE + line.substring(start, end));
             }
         }
     }
@@ -326,6 +327,20 @@ public class DefaultFormatPrinter implements FormatPrinter {
             message = xml;
         }
         return message;
+    }
+
+    private  <T> T[] concatAll(T[] first, T[]... rest) {
+        int totalLength = first.length;
+        for (T[] array : rest) {
+            totalLength += array.length;
+        }
+        T[] result = Arrays.copyOf(first, totalLength);
+        int offset = first.length;
+        for (T[] array : rest) {
+            System.arraycopy(array, 0, result, offset, array.length);
+            offset += array.length;
+        }
+        return result;
     }
 
 }
