@@ -76,6 +76,11 @@ public interface IActivity {
     int getContentView();
 
     /**
+     * 在ButterKnife注入之前调用
+     */
+    void beforeBindView();
+
+    /**
      * 初始化 View相关,处理一些view的事件等
      *
      * @param savedInstanceState

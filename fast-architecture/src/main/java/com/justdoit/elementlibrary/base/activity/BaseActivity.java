@@ -92,6 +92,7 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
             //如果initView返回0,框架则不会调用setContentView(),当然也不会 Bind ButterKnife
             if (layoutResID != 0) {
                 setContentView(layoutResID);
+                beforeBindView();
                 //绑定到butterknife
                 mUnbinder = ButterKnife.bind(this);
                 initWidget(savedInstanceState);
@@ -144,6 +145,11 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     @Override
     public boolean useFragment() {
         return true;
+    }
+
+    @Override
+    public void beforeBindView() {
+
     }
 
     /**

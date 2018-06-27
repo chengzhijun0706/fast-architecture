@@ -2,6 +2,7 @@ package com.justdoit.elementlibrary.base.activity;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
@@ -23,8 +24,6 @@ public abstract class BaseTitleActivity<P extends IPresenter> extends BaseActivi
     TitleLayout mLytTitle;
     @BindView(R2.id.view_gradient_divider)
     View mViewGradientDivider;
-    @BindView(R2.id.lyt_content)
-    ViewStub mLytContent;
     @BindView(R2.id.lyt_loading)
     FrameLayout mLytLoading;
     @BindView(R2.id.lyt_empty)
@@ -36,9 +35,16 @@ public abstract class BaseTitleActivity<P extends IPresenter> extends BaseActivi
     }
 
     @Override
-    public void initWidget(Bundle savedInstanceState) {
-        mLytContent.setLayoutResource(getContentLayoutId());
-        mLytContent.inflate();
+    public void beforeBindView() {
+        super.beforeBindView();
+        ViewStub content = (ViewStub) findViewById(R.id.lyt_content);
+        content.setLayoutResource(getContentLayoutId());
+        content.inflate();
+    }
+
+    @Override
+    public void initWidget(@Nullable Bundle savedInstanceState) {
+
     }
 
     public TitleLayout getTitleLayout() {
