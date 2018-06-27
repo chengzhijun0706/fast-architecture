@@ -10,4 +10,6 @@ public class AppUrl {
 
     public static final String URL_BASE = BuildConfig.BASE_URL;
 
+    public static final String URL_COMMON_WEATHER = "weather";
+
 }

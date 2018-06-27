@@ -52,12 +52,11 @@ import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
  * ================================================
  */
 public final class GlobalConfiguration implements ConfigModule {
-//    public static String sDomain = Api.APP_DOMAIN;
 
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
         if (BuildConfig.DEBUG) { //Release 时,让框架不再打印 Http 请求和响应的信息
-            builder.printHttpLogLevel(RequestInterceptor.Level.NONE);
+            builder.printHttpLogLevel(RequestInterceptor.Level.ALL);
         }
 
         builder.baseUrl(AppUrl.URL_BASE)

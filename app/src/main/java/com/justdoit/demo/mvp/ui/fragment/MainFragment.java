@@ -8,15 +8,18 @@ import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.justdoit.elementlibrary.base.fragment.BaseRecyclerViewFragment;
-import com.justdoit.elementlibrary.di.component.AppComponent;
-import com.justdoit.elementlibrary.utils.Utils;
 import com.justdoit.demo.di.component.DaggerMainComponent;
 import com.justdoit.demo.di.module.MainModule;
 import com.justdoit.demo.mvp.contract.MainContract;
+import com.justdoit.demo.mvp.model.entity.WeatherInfo;
 import com.justdoit.demo.mvp.presenter.MainPresenter;
 import com.justdoit.demo.mvp.ui.adapter.MainAdapter;
+import com.justdoit.elementlibrary.base.fragment.BaseRecyclerViewFragment;
+import com.justdoit.elementlibrary.di.component.AppComponent;
+import com.justdoit.elementlibrary.utils.Utils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
+import java.util.List;
 
 import static com.justdoit.elementlibrary.utils.Preconditions.checkNotNull;
 
@@ -100,7 +103,7 @@ public class MainFragment extends BaseRecyclerViewFragment<MainPresenter, MainAd
     }
 
     @Override
-    public void startLoadMore() {
+    public void setData(boolean isRefresh, List<WeatherInfo> weathers) {
 
     }
 }

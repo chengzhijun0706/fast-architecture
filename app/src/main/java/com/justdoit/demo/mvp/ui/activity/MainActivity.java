@@ -14,12 +14,16 @@ import com.justdoit.demo.R;
 import com.justdoit.demo.di.component.DaggerMainComponent;
 import com.justdoit.demo.di.module.MainModule;
 import com.justdoit.demo.mvp.contract.MainContract;
+import com.justdoit.demo.mvp.model.entity.WeatherInfo;
 import com.justdoit.demo.mvp.presenter.MainPresenter;
 import com.justdoit.demo.mvp.ui.adapter.MainAdapter;
 import com.justdoit.elementlibrary.base.activity.BaseRecyclerViewActivity;
 import com.justdoit.elementlibrary.di.component.AppComponent;
 import com.justdoit.elementlibrary.utils.Utils;
+import com.justdoit.elementlibrary.widget.TitleLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
+import java.util.List;
 
 import static com.justdoit.elementlibrary.utils.Preconditions.checkNotNull;
 
@@ -43,13 +47,11 @@ public class MainActivity extends BaseRecyclerViewActivity<MainPresenter, MainAd
                 .inject(this);
     }
 
-
     @Override
     public void initWidget(Bundle savedInstanceState) {
         super.initWidget(savedInstanceState);
-        mRecyclerView.setOnClickListener(v -> {
-
-        });
+        mRefreshLayout.setEnableLoadMore(false);
+        getTitleLayout().setButtonVisibility(TitleLayout.BUTTON_LEFT, View.GONE);
     }
 
     @Override
@@ -92,11 +94,13 @@ public class MainActivity extends BaseRecyclerViewActivity<MainPresenter, MainAd
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         super.onRefresh(refreshlayout);
+        mPresenter.getWeatherData(true);
     }
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
         super.onLoadMore(refreshLayout);
+        mPresenter.getWeatherData(false);
     }
 
     @Override
@@ -110,7 +114,14 @@ public class MainActivity extends BaseRecyclerViewActivity<MainPresenter, MainAd
     }
 
     @Override
-    public void startLoadMore() {
-
+    public void setData(boolean isRefresh, List<WeatherInfo> weathers) {
+        if (isRefresh) {
+            getTitleLayout().setText(TitleLayout.BUTTON_CENTER, weathers.get(0).getLocation());
+            mAdapter.setNewData(weathers);
+            mRefreshLayout.finishRefresh();
+        } else {
+            mAdapter.addData(weathers);
+            mRefreshLayout.finishLoadMore();
+        }
     }
 }

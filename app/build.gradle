@@ -22,12 +22,14 @@ android {
 
         debug {
             buildConfigField "String", "BASE_URL", "\"${BASE_URL_TEST}\""
+            buildConfigField "String", "WEATHER_KEY", "\"${WEATHER_KEY}\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         release {
             buildConfigField "String", "BASE_URL", "\"${BASE_URL}\""
+            buildConfigField "String", "WEATHER_KEY", "\"${WEATHER_KEY}\""
             minifyEnabled true
             shrinkResources true
             zipAlignEnabled true
@@ -52,7 +54,8 @@ dependencies {
         exclude module: 'support-annotations'
     }
 
-    implementation 'com.github.chengzhijun0706:fast-architecture:1.0.0'
+//    implementation 'com.github.chengzhijun0706:fast-architecture:1.0.0'
+    implementation project(":fast-architecture")
 
     debugImplementation rootProject.ext.dependencies["canary-debug"]
     releaseImplementation rootProject.ext.dependencies["canary-release"]
