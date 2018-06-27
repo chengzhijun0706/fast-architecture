@@ -224,6 +224,26 @@ public class TitleLayout extends LinearLayout {
         return this;
     }
 
+    public TitleLayout setButtonVisibility(int position, int visibility) {
+        switch (position) {
+            case BUTTON_LEFT:
+                mImgLeft.setVisibility(visibility);
+                mTvLeft.setVisibility(visibility);
+                break;
+            case BUTTON_CENTER:
+                mImgTitle.setVisibility(visibility);
+                mTvTitle.setVisibility(visibility);
+                break;
+            case BUTTON_RIGHT:
+                mImgRight.setVisibility(visibility);
+                mTvRight.setVisibility(visibility);
+                break;
+            default:
+                break;
+        }
+        return this;
+    }
+
     public TitleLayout setOnTitleClickListener(int position, OnTitleClickListener listener) {
         if (listener != null) {
             mListenerMap.put(position, listener);
