@@ -54,8 +54,8 @@ dependencies {
         exclude module: 'support-annotations'
     }
 
-    implementation 'com.github.chengzhijun0706:fast-architecture:1.0.1'
-//    implementation project(":fast-architecture")
+//    implementation 'com.github.chengzhijun0706:fast-architecture:1.0.1'
+    implementation project(":fast-architecture")
 
     debugImplementation rootProject.ext.dependencies["canary-debug"]
     releaseImplementation rootProject.ext.dependencies["canary-release"]

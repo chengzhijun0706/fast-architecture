@@ -25,8 +25,12 @@ import com.facebook.stetho.Stetho;
 import com.justdoit.elementlibrary.base.delegate.AppDelegate;
 import com.justdoit.elementlibrary.base.delegate.AppLifecycles;
 import com.justdoit.elementlibrary.di.component.AppComponent;
+import com.justdoit.elementlibrary.integration.LogCatStrategy;
 import com.justdoit.elementlibrary.utils.DataHelper;
 import com.justdoit.elementlibrary.utils.Preconditions;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
@@ -34,6 +38,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+
+import timber.log.Timber;
 
 
 /**
@@ -108,6 +114,24 @@ public class BaseApplication extends Application implements App {
         Stetho.initializeWithDefaults(this);
         //初始化CrashUtil
         CrashUtils.init(DataHelper.getCacheFile(this));
+
+        PrettyFormatStrategy strategy = PrettyFormatStrategy.newBuilder()
+                .showThreadInfo(false)
+                .logStrategy(new LogCatStrategy())
+                .methodCount(1)
+                .build();
+        Logger.addLogAdapter(new AndroidLogAdapter(strategy));
+        //Timber初始化
+        //Timber 是一个日志框架容器,外部使用统一的Api,内部可以动态的切换成任何日志框架(打印策略)进行日志打印
+        //并且支持添加多个日志框架(打印策略),做到外部调用一次 Api,内部却可以做到同时使用多个策略
+        //比如添加三个策略,一个打印日志,一个将日志保存本地,一个将日志上传服务器
+        // 如果你想将框架切换为 Logger 来打印日志,请使用下面的代码,如想切换为其他日志框架请根据下面的方式扩展
+        Timber.plant(new Timber.DebugTree() {
+            @Override
+            protected void log(int priority, String tag, String message, Throwable t) {
+                Logger.log(priority, tag, message, t);
+            }
+        });
     }
 
     /**

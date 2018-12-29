@@ -62,9 +62,9 @@ public class DefaultFormatPrinter implements FormatPrinter {
 
     private static final String N = "\n";
     private static final String T = "\t";
-    private static final String REQUEST_UP_LINE = "   ┌────── Request ────────────────────────────────────────────────────────────────────────";
-    private static final String END_LINE = "   └───────────────────────────────────────────────────────────────────────────────────────";
-    private static final String RESPONSE_UP_LINE = "   ┌────── Response ───────────────────────────────────────────────────────────────────────";
+    private static final String REQUEST_UP_LINE = "┌────── Request ────────────────────────────────────────────────────────────────────────";
+    private static final String END_LINE = "└───────────────────────────────────────────────────────────────────────────────────────";
+    private static final String RESPONSE_UP_LINE = "┌────── Response ───────────────────────────────────────────────────────────────────────";
     private static final String BODY_TAG = "Body:";
     private static final String URL_TAG = "URL: ";
     private static final String METHOD_TAG = "Method: @";
@@ -91,11 +91,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
     public void printJsonRequest(Request request, String bodyString) {
         final String requestBody = LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + bodyString;
         final String tag = getTag(true);
-        Log.i(tag, REQUEST_UP_LINE);
+        Log.i(resolveTag(tag), REQUEST_UP_LINE);
         logLines(tag, new String[]{URL_TAG + request.url()}, false);
         logLines(tag, getRequest(request), true);
         logLines(tag, requestBody.split(LINE_SEPARATOR), true);
-        Log.i(tag, END_LINE);
+        Log.i(resolveTag(tag), END_LINE);
     }
 
     /**
@@ -106,11 +106,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
     @Override
     public void printFileRequest(Request request) {
         final String tag = getTag(true);
-        Log.i(tag, REQUEST_UP_LINE);
+        Log.i(resolveTag(tag), REQUEST_UP_LINE);
         logLines(tag, new String[]{URL_TAG + request.url()}, false);
         logLines(tag, getRequest(request), true);
         logLines(tag, OMITTED_REQUEST, true);
-        Log.i(tag, END_LINE);
+        Log.i(resolveTag(tag), END_LINE);
     }
 
     /**
@@ -136,11 +136,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
         final String tag = getTag(false);
         final String[] urlLine = {URL_TAG + responseUrl, N};
 
-        Log.i(tag, RESPONSE_UP_LINE);
+        Log.i(resolveTag(tag), RESPONSE_UP_LINE);
         logLines(tag, urlLine, true);
         logLines(tag, getResponse(headers, chainMs, code, isSuccessful, segments, message), true);
         logLines(tag, responseBody.split(LINE_SEPARATOR), true);
-        Log.i(tag, END_LINE);
+        Log.i(resolveTag(tag), END_LINE);
     }
 
     /**
@@ -160,11 +160,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
         final String tag = getTag(false);
         final String[] urlLine = {URL_TAG + responseUrl, N};
 
-        Log.i(tag, RESPONSE_UP_LINE);
+        Log.i(resolveTag(tag), RESPONSE_UP_LINE);
         logLines(tag, urlLine, true);
         logLines(tag, getResponse(headers, chainMs, code, isSuccessful, segments, message), true);
         logLines(tag, OMITTED_RESPONSE, true);
-        Log.i(tag, END_LINE);
+        Log.i(resolveTag(tag), END_LINE);
     }
 
 
