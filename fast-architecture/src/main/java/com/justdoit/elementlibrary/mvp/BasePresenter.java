@@ -17,16 +17,17 @@ package com.justdoit.elementlibrary.mvp;
 
 import android.app.Activity;
 import android.app.Service;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.OnLifecycleEvent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.SupportActivity;
 import android.view.View;
 
+import androidx.core.app.ComponentActivity;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.OnLifecycleEvent;
+
 import com.justdoit.elementlibrary.utils.Preconditions;
-import com.trello.rxlifecycle2.RxLifecycle;
+import com.trello.rxlifecycle3.RxLifecycle;
 
 import org.simple.eventbus.EventBus;
 
@@ -111,7 +112,7 @@ public class BasePresenter<M extends IModel, V extends IView> implements IPresen
 
     /**
      * 使用 2017 Google IO 发布的 Architecture Components 中的 Lifecycles 的新特性 (此特性已被加入 Support library)
-     * 使 {@code Presenter} 可以与 {@link SupportActivity} 和 {@link Fragment} 的部分生命周期绑定
+     * 使 {@code Presenter} 可以与 {@link ComponentActivity} 和 {@link Fragment} 的部分生命周期绑定
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate() {
@@ -123,7 +124,7 @@ public class BasePresenter<M extends IModel, V extends IView> implements IPresen
      * 所以当您想在 {@link Service} 以及一些自定义 {@link View} 或自定义类中使用 {@code Presenter} 时
      * 您也将不能继续使用 {@link OnLifecycleEvent} 绑定生命周期
      *
-     * @param owner link {@link SupportActivity} and {@link Fragment}
+     * @param owner link {@link ComponentActivity} and {@link Fragment}
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     void onDestroy(LifecycleOwner owner) {

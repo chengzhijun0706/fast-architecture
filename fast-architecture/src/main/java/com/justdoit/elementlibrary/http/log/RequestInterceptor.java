@@ -15,7 +15,7 @@
  */
 package com.justdoit.elementlibrary.http.log;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.justdoit.elementlibrary.http.GlobalHttpHandler;

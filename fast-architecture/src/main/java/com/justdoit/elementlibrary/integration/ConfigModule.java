@@ -17,7 +17,7 @@ package com.justdoit.elementlibrary.integration;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
 
 import com.justdoit.elementlibrary.base.delegate.AppLifecycles;
 import com.justdoit.elementlibrary.di.module.GlobalConfigModule;

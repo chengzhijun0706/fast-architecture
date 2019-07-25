@@ -2,9 +2,10 @@ package com.justdoit.elementlibrary.imageloader.loader;
 
 import android.content.Context;
 import android.graphics.PointF;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -421,12 +422,12 @@ public class GlideLoader implements ILoader {
 
     @Override
     public void trimMemory(Context context, int level) {
-        GlideApp.with(context).onTrimMemory(level);
+        GlideApp.get(context).onTrimMemory(level);
     }
 
     @Override
     public void onLowMemory(Context context) {
-        GlideApp.with(context).onLowMemory();
+        GlideApp.get(context).onLowMemory();
     }
 
     @Override

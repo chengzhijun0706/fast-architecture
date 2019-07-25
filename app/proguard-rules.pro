@@ -223,8 +223,8 @@
 
 
 ################RxLifeCycle#################
--keep class com.trello.rxlifecycle2.** { *; }
--keep interface com.trello.rxlifecycle2.** { *; }
+-keep class com.trello.rxlifecycle3.** { *; }
+-keep interface com.trello.rxlifecycle3.** { *; }
 
 
 ################RxPermissions#################

@@ -17,8 +17,8 @@ package com.justdoit.elementlibrary.integration.lifecycle;
 
 import android.app.Activity;
 
-import com.trello.rxlifecycle2.RxLifecycle;
-import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle3.RxLifecycle;
+import com.trello.rxlifecycle3.android.ActivityEvent;
 
 /**
  * ================================================

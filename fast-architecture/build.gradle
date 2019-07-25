@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.jakewharton.butterknife'
 
 android {
@@ -24,11 +23,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    retrolambda {
-        defaultMethods = true
-    }
-
     lintOptions {
         abortOnError false
     }
@@ -68,15 +62,21 @@ dependencies {
         exclude module: 'rxjava'
         exclude module: 'dagger'
     }
-    implementation(rootProject.ext.dependencies["rxcache-jolyglot-gson"]) {
+    api(rootProject.ext.dependencies["rxcache-jolyglot-gson"]) {
         exclude module: 'gson'
     }
-    api(rootProject.ext.dependencies["rxlifecycle2"]) {
+    api(rootProject.ext.dependencies["rxlifecycle3"]) {
         exclude module: 'rxjava'
         exclude module: 'jsr305'
     }
-    api(rootProject.ext.dependencies["rxlifecycle2-android"]) {
+    api(rootProject.ext.dependencies["rxlifecycle3-android"]) {
         exclude module: 'support-annotations'
+        exclude module: 'rxjava'
+        exclude module: 'rxandroid'
+        exclude module: 'rxlifecycle'
+    }
+    api(rootProject.ext.dependencies["rxlifecycle3-components"]) {
+        exclude module: 'appcompat-v7'
         exclude module: 'rxjava'
         exclude module: 'rxandroid'
         exclude module: 'rxlifecycle'
@@ -92,13 +92,13 @@ dependencies {
         exclude module: 'okhttp'
         exclude module: 'okio'
     }
-    implementation(rootProject.ext.dependencies["retrofit-converter-gson"]) {
+    api(rootProject.ext.dependencies["retrofit-converter-gson"]) {
         exclude module: 'gson'
         exclude module: 'okhttp'
         exclude module: 'okio'
         exclude module: 'retrofit'
     }
-    implementation(rootProject.ext.dependencies["retrofit-adapter-rxjava2"]) {
+    api(rootProject.ext.dependencies["retrofit-adapter-rxjava2"]) {
         exclude module: 'rxjava'
         exclude module: 'okhttp'
         exclude module: 'retrofit'

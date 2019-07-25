@@ -15,7 +15,7 @@
  */
 package com.justdoit.elementlibrary.utils;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * ================================================

@@ -15,7 +15,7 @@
  */
 package com.justdoit.elementlibrary.base;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.justdoit.elementlibrary.di.component.AppComponent;
 

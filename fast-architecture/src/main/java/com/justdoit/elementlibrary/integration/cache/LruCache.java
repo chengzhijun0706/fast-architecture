@@ -16,7 +16,7 @@
 package com.justdoit.elementlibrary.integration.cache;
 
 import android.app.Application;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 
 import java.util.LinkedHashMap;

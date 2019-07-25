@@ -1,11 +1,12 @@
 package com.justdoit.elementlibrary.base.activity;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
 
 import com.justdoit.elementlibrary.R;
 import com.justdoit.elementlibrary.R2;

@@ -17,9 +17,9 @@ package com.justdoit.elementlibrary.base.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +30,7 @@ import com.justdoit.elementlibrary.integration.cache.CacheType;
 import com.justdoit.elementlibrary.integration.lifecycle.FragmentLifecycleable;
 import com.justdoit.elementlibrary.mvp.IPresenter;
 import com.justdoit.elementlibrary.utils.Utils;
-import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import javax.inject.Inject;
 
