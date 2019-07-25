@@ -19,8 +19,18 @@ import io.rx_cache2.Reply;
 public interface AppCacheService {
 
     @LifeCache(duration = 2, timeUnit = TimeUnit.MINUTES)
-    Observable<Reply<BaseListResponseEntity<Weather>>> getWeatherList(Observable<BaseListResponseEntity<Weather>> observable,
-                                                                      DynamicKey dynamicKey,
-                                                                      EvictDynamicKey evictDynamicKey);
+    Observable<Reply<BaseListResponseEntity<Weather>>> getNowWeather(Observable<BaseListResponseEntity<Weather>> observable,
+                                                                     DynamicKey dynamicKey,
+                                                                     EvictDynamicKey evictDynamicKey);
+
+    @LifeCache(duration = 2, timeUnit = TimeUnit.MINUTES)
+    Observable<Reply<BaseListResponseEntity<Weather>>> getLifestylEWeather(Observable<BaseListResponseEntity<Weather>> observable,
+                                                                           DynamicKey dynamicKey,
+                                                                           EvictDynamicKey evictDynamicKey);
+
+    @LifeCache(duration = 2, timeUnit = TimeUnit.MINUTES)
+    Observable<Reply<BaseListResponseEntity<Weather>>> getForecastWeather(Observable<BaseListResponseEntity<Weather>> observable,
+                                                                          DynamicKey dynamicKey,
+                                                                          EvictDynamicKey evictDynamicKey);
 
 }

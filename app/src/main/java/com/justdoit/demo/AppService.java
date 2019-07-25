@@ -14,8 +14,16 @@ import retrofit2.http.Query;
  */
 public interface AppService {
 
-    @GET(AppUrl.URL_COMMON_WEATHER)
-    Observable<BaseListResponseEntity<Weather>> getWeatherList(@Query("location") String city,
-                                                               @Query("key") String key);
+    @GET(AppUrl.URL_COMMON_WEATHER_NOW)
+    Observable<BaseListResponseEntity<Weather>> getNowWeather(@Query("location") String city,
+                                                              @Query("key") String key);
+
+    @GET(AppUrl.URL_COMMON_WEATHER_LIFESTYLE)
+    Observable<BaseListResponseEntity<Weather>> getLifestylEWeather(@Query("location") String city,
+                                                                    @Query("key") String key);
+
+    @GET(AppUrl.URL_COMMON_WEATHER_FORECAST)
+    Observable<BaseListResponseEntity<Weather>> getForecastWeather(@Query("location") String city,
+                                                                   @Query("key") String key);
 
 }

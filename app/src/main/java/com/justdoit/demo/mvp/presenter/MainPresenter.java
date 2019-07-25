@@ -1,8 +1,9 @@
 package com.justdoit.demo.mvp.presenter;
 
 import android.app.Application;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.OnLifecycleEvent;
+
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import com.justdoit.demo.mvp.contract.MainContract;
 import com.justdoit.demo.mvp.model.entity.WeatherInfo;
@@ -32,8 +33,8 @@ public class MainPresenter extends BasePresenter<MainContract.Model, MainContrac
         super(model, rootView);
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void onCreate() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void onResume() {
         getWeatherData(true);
     }
 
