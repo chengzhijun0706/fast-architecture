@@ -94,6 +94,19 @@ public class Weather implements Serializable {
         public void setLon(String lon) {
             this.lon = lon;
         }
+
+        @Override
+        public String toString() {
+            return "BasicEntity{" +
+                    "location='" + location + '\'' +
+                    ", parentCity='" + parentCity + '\'' +
+                    ", adminArea='" + adminArea + '\'' +
+                    ", cnty='" + cnty + '\'' +
+                    ", id='" + id + '\'' +
+                    ", lat='" + lat + '\'' +
+                    ", lon='" + lon + '\'' +
+                    '}';
+        }
     }
 
     public static class UpdateEntity implements Serializable {
@@ -120,6 +133,14 @@ public class Weather implements Serializable {
 
         public void setUtc(String utc) {
             this.utc = utc;
+        }
+
+        @Override
+        public String toString() {
+            return "UpdateEntity{" +
+                    "loc='" + loc + '\'' +
+                    ", utc='" + utc + '\'' +
+                    '}';
         }
     }
 
@@ -270,6 +291,25 @@ public class Weather implements Serializable {
         public void setWindSpd(String windSpd) {
             this.windSpd = windSpd;
         }
+
+        @Override
+        public String toString() {
+            return "NowEntity{" +
+                    "cloud='" + cloud + '\'' +
+                    ", condCode='" + condCode + '\'' +
+                    ", condTxt='" + condTxt + '\'' +
+                    ", fl='" + fl + '\'' +
+                    ", hum='" + hum + '\'' +
+                    ", pcpn='" + pcpn + '\'' +
+                    ", pres='" + pres + '\'' +
+                    ", tmp='" + tmp + '\'' +
+                    ", vis='" + vis + '\'' +
+                    ", windDeg='" + windDeg + '\'' +
+                    ", windDir='" + windDir + '\'' +
+                    ", windSc='" + windSc + '\'' +
+                    ", windSpd='" + windSpd + '\'' +
+                    '}';
+        }
     }
 
     public static class LifestyleEntity implements Serializable {
@@ -339,6 +379,15 @@ public class Weather implements Serializable {
 
         public void setTxt(String txt) {
             this.txt = txt;
+        }
+
+        @Override
+        public String toString() {
+            return "LifestyleEntity{" +
+                    "type='" + type + '\'' +
+                    ", brf='" + brf + '\'' +
+                    ", txt='" + txt + '\'' +
+                    '}';
         }
     }
 
@@ -567,6 +616,32 @@ public class Weather implements Serializable {
         public void setWindSpd(String windSpd) {
             this.windSpd = windSpd;
         }
+
+        @Override
+        public String toString() {
+            return "DailyForecastEntity{" +
+                    "sr='" + sr + '\'' +
+                    ", ss='" + ss + '\'' +
+                    ", mr='" + mr + '\'' +
+                    ", ms='" + ms + '\'' +
+                    ", condCodeD='" + condCodeD + '\'' +
+                    ", condCodeN='" + condCodeN + '\'' +
+                    ", condTxtD='" + condTxtD + '\'' +
+                    ", condTxtN='" + condTxtN + '\'' +
+                    ", date='" + date + '\'' +
+                    ", hum='" + hum + '\'' +
+                    ", pcpn='" + pcpn + '\'' +
+                    ", pop='" + pop + '\'' +
+                    ", pres='" + pres + '\'' +
+                    ", tmpMax='" + tmpMax + '\'' +
+                    ", tmpMin='" + tmpMin + '\'' +
+                    ", vis='" + vis + '\'' +
+                    ", windDeg='" + windDeg + '\'' +
+                    ", windDir='" + windDir + '\'' +
+                    ", windSc='" + windSc + '\'' +
+                    ", windSpd='" + windSpd + '\'' +
+                    '}';
+        }
     }
 
     public BasicEntity getBasic() {
@@ -615,5 +690,17 @@ public class Weather implements Serializable {
 
     public void setDailyForecast(List<DailyForecastEntity> dailyForecast) {
         this.dailyForecast = dailyForecast;
+    }
+
+    @Override
+    public String toString() {
+        return "Weather{" +
+                "basic=" + basic +
+                ", update=" + update +
+                ", now=" + now +
+                ", status='" + status + '\'' +
+                ", suggestion=" + suggestion +
+                ", dailyForecast=" + dailyForecast +
+                '}';
     }
 }
