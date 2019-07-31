@@ -5,7 +5,6 @@ import android.app.Application;
 import com.blankj.utilcode.util.TimeUtils;
 import com.justdoit.demo.AppCacheService;
 import com.justdoit.demo.AppService;
-import com.justdoit.demo.BaseListResponseEntity;
 import com.justdoit.demo.BuildConfig;
 import com.justdoit.demo.R;
 import com.justdoit.demo.mvp.contract.MainContract;
@@ -17,19 +16,15 @@ import com.justdoit.elementlibrary.mvp.BaseModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.SingleSource;
-import io.reactivex.functions.Function;
 import io.rx_cache2.DynamicKey;
 import io.rx_cache2.EvictDynamicKey;
-import io.rx_cache2.Reply;
 
 
 @ActivityScope
@@ -67,28 +62,18 @@ public class MainModel extends BaseModel implements MainContract.Model {
                                 .obtainRetrofitService(AppService.class)
                                 .getForecastWeather(city, BuildConfig.WEATHER_KEY), new DynamicKey(city), new EvictDynamicKey(isRefresh))
         )
-                .toList()
-                .flatMap((Function<List<Reply<BaseListResponseEntity<Weather>>>, SingleSource<Weather>>) replies -> {
-                    List<Weather> list = new ArrayList<>();
-                    Iterator<Reply<BaseListResponseEntity<Weather>>> iterator = replies.iterator();
-                    while (iterator.hasNext()) {
-                        list.add(iterator.next().getData().getData().get(0));
+                .map(baseListResponseEntityReply -> baseListResponseEntityReply.getData().getData().get(0))
+                .reduce((first, second) -> {
+                    if (second.getDailyForecast() != null) {
+                        first.setDailyForecast(second.getDailyForecast());
                     }
-                    Weather weathers = list.get(0);
-                    for (int i = 1; i < list.size(); i++) {
-                        Weather weather = list.get(i);
-                        if (weather.getDailyForecast() != null) {
-                            weathers.setDailyForecast(weather.getDailyForecast());
-                        }
-                        if (weather.getSuggestion() != null) {
-                            weathers.setSuggestion(weather.getSuggestion());
-                        }
+                    if (second.getSuggestion() != null) {
+                        first.setSuggestion(second.getSuggestion());
                     }
-                    return Single.just(weathers);
+                    return first;
                 })
                 .toObservable()
-                .map(weather -> {
-                    List<WeatherInfo> infos = new ArrayList<>();
+                .collect((Callable<List<WeatherInfo>>) ArrayList::new, (weatherInfos, weather) -> {
                     WeatherInfo currWeather = new WeatherInfo();
                     currWeather.setLocation(weather.getBasic().getLocation());
                     currWeather.setItemType(WeatherInfo.TYPE_CURR_WEATHER);
@@ -96,7 +81,7 @@ public class MainModel extends BaseModel implements MainContract.Model {
                     currWeather.setMaxTmp(String.format("↑ %s°", weather.getDailyForecast().get(0).getTmpMax()));
                     currWeather.setMinTmp(String.format("↓ %s°", weather.getDailyForecast().get(0).getTmpMin()));
                     currWeather.setWeatherIconRes(getWeatherIconResFromText(weather.getNow().getCondTxt()));
-                    infos.add(currWeather);
+                    weatherInfos.add(currWeather);
 
                     for (Weather.LifestyleEntity entity : weather.getSuggestion()) {
                         WeatherInfo suggestion = new WeatherInfo();
@@ -106,25 +91,25 @@ public class MainModel extends BaseModel implements MainContract.Model {
                                 suggestion.setTitle(String.format("穿衣指数---%s", entity.getBrf()));
                                 suggestion.setDescribe(entity.getTxt());
                                 suggestion.setWeatherIconRes(R.mipmap.icon_cloth);
-                                infos.add(suggestion);
+                                weatherInfos.add(suggestion);
                                 break;
                             case "sport":
                                 suggestion.setTitle(String.format("运动指数---%s", entity.getBrf()));
                                 suggestion.setDescribe(entity.getTxt());
                                 suggestion.setWeatherIconRes(R.mipmap.icon_sport);
-                                infos.add(suggestion);
+                                weatherInfos.add(suggestion);
                                 break;
                             case "trav":
                                 suggestion.setTitle(String.format("旅游指数---%s", entity.getBrf()));
                                 suggestion.setDescribe(entity.getTxt());
                                 suggestion.setWeatherIconRes(R.mipmap.icon_travel);
-                                infos.add(suggestion);
+                                weatherInfos.add(suggestion);
                                 break;
                             case "flu":
                                 suggestion.setTitle(String.format("感冒指数---%s", entity.getBrf()));
                                 suggestion.setDescribe(entity.getTxt());
                                 suggestion.setWeatherIconRes(R.mipmap.icon_flu);
-                                infos.add(suggestion);
+                                weatherInfos.add(suggestion);
                                 break;
                             default:
                                 break;
@@ -150,10 +135,10 @@ public class MainModel extends BaseModel implements MainContract.Model {
                                 futureWeather.setTitle(TimeUtils.getChineseWeek(entity.getDate(), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())));
                                 break;
                         }
-                        infos.add(futureWeather);
+                        weatherInfos.add(futureWeather);
                     }
-                    return infos;
-                });
+                })
+                .toObservable();
     }
 
     private int getWeatherIconResFromText(String text) {
