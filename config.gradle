@@ -94,7 +94,7 @@ ext {
             "canary-debug"             : "com.squareup.leakcanary:leakcanary-android:${version["canarySdkVersion"]}",
             "canary-release"           : "com.squareup.leakcanary:leakcanary-android-no-op:${version["canarySdkVersion"]}",
             "umeng-analytics"          : "com.umeng.analytics:analytics:6.0.1",
-            "utilcode"                 : "com.blankj:utilcode:1.15.0"
+            "utilcode"                 : "com.blankj:utilcodex:1.25.5"
     ]
 
 
