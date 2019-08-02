@@ -56,6 +56,7 @@ public class SingleConfig {
     private int shapeMode;//默认矩形,可选直角矩形,圆形/椭圆
     private int rectRoundRadius;//圆角矩形时圆角的半径
     private int diskCacheStrategyMode;//是否跳过磁盘存储
+    private boolean skipMemoryCache;//是否跳过内存缓存
     private int scaleMode;//填充模式,默认centercrop,可选fitXY,centerInside...
 
     private RequestListener requestListener;
@@ -81,6 +82,7 @@ public class SingleConfig {
         this.scaleMode = builder.scaleMode;
 
         this.diskCacheStrategyMode = builder.diskCacheStrategyMode;
+        this.skipMemoryCache = builder.skipMemoryCache;
 
         this.animationId = builder.animationId;
         this.animationType = builder.animationType;
@@ -127,6 +129,10 @@ public class SingleConfig {
 
     public int getDiskCacheStrategyMode() {
         return diskCacheStrategyMode;
+    }
+
+    public boolean isSkipMemoryCache() {
+        return skipMemoryCache;
     }
 
     public int getErrorResId() {
@@ -345,6 +351,7 @@ public class SingleConfig {
         private int rectRoundRadius;//圆角矩形时圆角的半径
 
         private int diskCacheStrategyMode;
+        private boolean skipMemoryCache;//是否跳过内存缓存
 
         private int scaleMode;//填充模式,默认centercrop,可选fitXY,centerInside...
 
@@ -496,6 +503,14 @@ public class SingleConfig {
          */
         public ConfigBuilder diskCacheStrategy(int diskCacheStrategyMode) {
             this.diskCacheStrategyMode = diskCacheStrategyMode;
+            return this;
+        }
+
+        /**
+         * 是否跳过内存缓存
+         */
+        public ConfigBuilder skipMemoryCache(boolean skipMemoryCache) {
+            this.skipMemoryCache = skipMemoryCache;
             return this;
         }
 

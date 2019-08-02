@@ -104,8 +104,11 @@ public class GlideLoader implements ILoader {
             request.override(config.getoWidth(), config.getoHeight());
         }
 
-        //是否跳过磁盘存储
+        //设置磁盘缓存模式
         setDiskCacheStrategy(config, request);
+
+        //是否跳过内存缓存
+        request.skipMemoryCache(config.isSkipMemoryCache());
 
         //设置图片加载动画
         setAnimator(config, request);
