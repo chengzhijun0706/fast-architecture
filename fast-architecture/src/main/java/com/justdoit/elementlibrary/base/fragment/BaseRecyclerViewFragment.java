@@ -1,12 +1,13 @@
 package com.justdoit.elementlibrary.base.fragment;
 
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.justdoit.elementlibrary.R;
@@ -35,6 +36,8 @@ public abstract class BaseRecyclerViewFragment<P extends IPresenter, A extends B
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mRefreshLayout = view.findViewById(R.id.refreshLayout);
+        mRecyclerView = view.findViewById(R.id.recyclerView);
         mRefreshLayout.setOnRefreshLoadMoreListener(this);
 
         mAdapter.setOnItemClickListener(this);

@@ -18,12 +18,13 @@ package com.justdoit.elementlibrary.base.delegate;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Message;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.justdoit.elementlibrary.base.fragment.BaseFragment;
 import com.justdoit.elementlibrary.di.component.AppComponent;
@@ -89,6 +90,11 @@ public interface IFragment {
      * 懒加载方法,主要针对viewpager
      */
     void lazyLoadData();
+
+    /**
+     * 在ButterKnife注入之前调用
+     */
+    void beforeBindView();
 
     /**
      * 通过此方法可以使 Fragment 能够与外界做一些交互和通信, 比如说外部的 Activity 想让自己持有的某个 Fragment 对象执行一些方法,

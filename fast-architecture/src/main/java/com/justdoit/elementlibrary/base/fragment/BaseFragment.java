@@ -17,12 +17,13 @@ package com.justdoit.elementlibrary.base.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.justdoit.elementlibrary.base.delegate.IFragment;
 import com.justdoit.elementlibrary.integration.cache.Cache;
@@ -34,6 +35,7 @@ import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
 
@@ -95,6 +97,11 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // Do something
+        beforeBindView();
+        // Bind view
+        ButterKnife.bind(this, view);
+
         isPrepared = true;
         if (getUserVisibleHint() && !isLoadedOnce) {
             lazyLoadData();
@@ -144,6 +151,11 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
 
     @Override
     public void lazyLoadData() {
+
+    }
+
+    @Override
+    public void beforeBindView() {
 
     }
 

@@ -1,21 +1,19 @@
 package com.justdoit.elementlibrary.base.fragment;
 
 import android.os.Bundle;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.justdoit.elementlibrary.R;
-import com.justdoit.elementlibrary.R2;
 import com.justdoit.elementlibrary.mvp.IPresenter;
 import com.justdoit.elementlibrary.widget.TitleLayout;
-
-import butterknife.BindView;
 
 
 /**
@@ -23,16 +21,11 @@ import butterknife.BindView;
  */
 public abstract class BaseTitleFragment<P extends IPresenter> extends BaseFragment<P> {
 
-    @BindView(R2.id.lyt_title)
-    TitleLayout mLytTitle;
-    @BindView(R2.id.view_gradient_divider)
-    View mViewGradientDivider;
-    @BindView(R2.id.lyt_content)
-    ViewStub mLytContent;
-    @BindView(R2.id.lyt_loading)
-    FrameLayout mLytLoading;
-    @BindView(R2.id.lyt_empty)
-    FrameLayout mLytEmpty;
+    protected TitleLayout mLytTitle;
+    protected View mViewGradientDivider;
+    protected ViewStub mLytContent;
+    protected FrameLayout mLytLoading;
+    protected FrameLayout mLytEmpty;
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,9 +35,13 @@ public abstract class BaseTitleFragment<P extends IPresenter> extends BaseFragme
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mLytTitle = view.findViewById(R.id.lyt_title);
+        mViewGradientDivider = view.findViewById(R.id.view_gradient_divider);
+        mLytLoading = view.findViewById(R.id.lyt_loading);
+        mLytEmpty = view.findViewById(R.id.lyt_empty);
+        mLytContent = view.findViewById(R.id.lyt_content);
         mLytContent.setLayoutResource(getContentLayoutId());
         mLytContent.inflate();
-
     }
 
     public TitleLayout getTitleLayout() {

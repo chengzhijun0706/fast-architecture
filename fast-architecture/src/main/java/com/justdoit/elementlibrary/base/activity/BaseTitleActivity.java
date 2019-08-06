@@ -9,11 +9,8 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 
 import com.justdoit.elementlibrary.R;
-import com.justdoit.elementlibrary.R2;
 import com.justdoit.elementlibrary.mvp.IPresenter;
 import com.justdoit.elementlibrary.widget.TitleLayout;
-
-import butterknife.BindView;
 
 
 /**
@@ -21,13 +18,9 @@ import butterknife.BindView;
  */
 public abstract class BaseTitleActivity<P extends IPresenter> extends BaseActivity<P> {
 
-    @BindView(R2.id.lyt_title)
     TitleLayout mLytTitle;
-    @BindView(R2.id.view_gradient_divider)
     View mViewGradientDivider;
-    @BindView(R2.id.lyt_loading)
     FrameLayout mLytLoading;
-    @BindView(R2.id.lyt_empty)
     FrameLayout mLytEmpty;
 
     @Override
@@ -38,7 +31,11 @@ public abstract class BaseTitleActivity<P extends IPresenter> extends BaseActivi
     @Override
     public void beforeBindView() {
         super.beforeBindView();
-        ViewStub content = (ViewStub) findViewById(R.id.lyt_content);
+        mLytTitle = findViewById(R.id.lyt_title);
+        mViewGradientDivider = findViewById(R.id.view_gradient_divider);
+        mLytLoading = findViewById(R.id.lyt_loading);
+        mLytEmpty = findViewById(R.id.lyt_empty);
+        ViewStub content = findViewById(R.id.lyt_content);
         content.setLayoutResource(getContentLayoutId());
         content.inflate();
     }
