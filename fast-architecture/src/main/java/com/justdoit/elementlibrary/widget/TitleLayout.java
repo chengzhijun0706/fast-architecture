@@ -257,32 +257,27 @@ public class TitleLayout extends LinearLayout {
     public void onViewClicked(View view) {
         OnTitleClickListener listener;
         Context context = getContext();
-        switch (view.getId()) {
-            case R2.id.lyt_left:
-                boolean result = false;
-                if (mListenerMap.containsKey(BUTTON_LEFT)) {
-                    listener = mListenerMap.get(BUTTON_LEFT);
-                    result = listener.onClick(this, view, BUTTON_LEFT);
-                }
-                //默认操作
-                if (!result && context instanceof Activity) {
-                    ((Activity) context).finish();
-                }
-                break;
-            case R2.id.lyt_title:
-                if (mListenerMap.containsKey(BUTTON_CENTER)) {
-                    listener = mListenerMap.get(BUTTON_CENTER);
-                    listener.onClick(this, view, BUTTON_CENTER);
-                }
-                break;
-            case R2.id.lyt_right:
-                if (mListenerMap.containsKey(BUTTON_RIGHT)) {
-                    listener = mListenerMap.get(BUTTON_RIGHT);
-                    listener.onClick(this, view, BUTTON_RIGHT);
-                }
-                break;
-            default:
-                break;
+        int i = view.getId();
+        if (i == R.id.lyt_left) {
+            boolean result = false;
+            if (mListenerMap.containsKey(BUTTON_LEFT)) {
+                listener = mListenerMap.get(BUTTON_LEFT);
+                result = listener.onClick(this, view, BUTTON_LEFT);
+            }
+            //默认操作
+            if (!result && context instanceof Activity) {
+                ((Activity) context).finish();
+            }
+        } else if (i == R.id.lyt_title) {
+            if (mListenerMap.containsKey(BUTTON_CENTER)) {
+                listener = mListenerMap.get(BUTTON_CENTER);
+                listener.onClick(this, view, BUTTON_CENTER);
+            }
+        } else if (i == R.id.lyt_right) {
+            if (mListenerMap.containsKey(BUTTON_RIGHT)) {
+                listener = mListenerMap.get(BUTTON_RIGHT);
+                listener.onClick(this, view, BUTTON_RIGHT);
+            }
         }
     }
 
