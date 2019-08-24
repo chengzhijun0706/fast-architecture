@@ -10,13 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarSize"/>
 
-    <View
-        android:id="@+id/view_gradient_divider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_gradient_height"
-        android:layout_below="@id/lyt_title"
-        android:background="@drawable/title_gradient_bg" />
-
     <ViewStub
         android:id="@+id/lyt_content"
         android:layout_width="match_parent"
@@ -34,5 +27,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/lyt_title"/>
+
+    <View
+        android:id="@+id/view_gradient_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_gradient_height"
+        android:layout_below="@id/lyt_title"
+        android:background="@drawable/title_gradient_bg" />
 
 </RelativeLayout>
