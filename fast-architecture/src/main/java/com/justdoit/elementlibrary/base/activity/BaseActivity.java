@@ -17,11 +17,18 @@ package com.justdoit.elementlibrary.base.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 
+import androidx.annotation.AnimRes;
+import androidx.annotation.CallSuper;
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.justdoit.elementlibrary.base.delegate.IActivity;
 import com.justdoit.elementlibrary.base.fragment.BaseFragment;
@@ -35,12 +42,15 @@ import com.justdoit.elementlibrary.widget.parallaxbacklayout.ParallaxBackActivit
 import com.justdoit.elementlibrary.widget.parallaxbacklayout.ParallaxBackLayout;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
+import java.lang.ref.WeakReference;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
+import timber.log.Timber;
 
 
 /**
@@ -60,6 +70,8 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     private Unbinder mUnbinder;
 
     private ParallaxBackActivityHelper mHelper;
+
+    private ActivityHandler mHandler;
 
     @Inject
     @Nullable
@@ -102,6 +114,8 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         } catch (Exception e) {
             e.printStackTrace();
         }
+        mHandler = new ActivityHandler(this);
+
         mHelper = new ParallaxBackActivityHelper(this);
         mHelper.setBackEnable(useSlideBack());
         initData(savedInstanceState);
@@ -172,5 +186,152 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
 
     public void setBackEnable(boolean enable) {
         mHelper.setBackEnable(enable);
+    }
+
+    @CallSuper
+    public void handleMessage(Message msg) {
+    }
+
+    public final boolean sendEmptyMessage(int what) {
+        return mHandler.sendEmptyMessage(what);
+    }
+
+    public final boolean sendEmptyMessageDelayed(int what, long delayMillis) {
+        return mHandler.sendEmptyMessageDelayed(what, delayMillis);
+    }
+
+    public final boolean sendEmptyMessageAtTime(int what, long uptimeMillis) {
+        return mHandler.sendEmptyMessageAtTime(what, uptimeMillis);
+    }
+
+    public final boolean sendMessage(Message msg) {
+        return mHandler.sendMessage(msg);
+    }
+
+    public final boolean sendMessageDelayed(Message msg, long delayMillis) {
+        return mHandler.sendMessageDelayed(msg, delayMillis);
+    }
+
+    public final boolean sendMessageAtTime(Message msg, long uptimeMillis) {
+        return mHandler.sendMessageAtTime(msg, uptimeMillis);
+    }
+
+    public final boolean hasMessages(int what) {
+        return mHandler.hasMessages(what);
+    }
+
+    public final void removeMessages(int what) {
+        mHandler.removeMessages(what);
+    }
+
+    public final boolean postDelayed(Runnable r, long delayMillis) {
+        return mHandler.postDelayed(r, delayMillis);
+    }
+
+    public final boolean postAtTime(Runnable r, Object token, long uptimeMillis) {
+        return mHandler.postAtTime(r, token, uptimeMillis);
+    }
+
+    public final boolean postAtTime(Runnable r, long uptimeMillis) {
+        return mHandler.postAtTime(r, uptimeMillis);
+    }
+
+    public final void removeCallbacks(Runnable r) {
+        mHandler.removeCallbacks(r);
+    }
+
+    protected void addFragment(@IdRes int containerViewId, @NonNull Fragment fragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(containerViewId, fragment);
+        ft.commitAllowingStateLoss();
+    }
+
+    public void add(@IdRes int containerViewId, @NonNull Fragment fragment, @Nullable String tag) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(containerViewId, fragment, tag);
+        ft.commitAllowingStateLoss();
+    }
+
+    public void add(@NonNull Fragment fragment, @Nullable String tag) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(fragment, tag);
+        ft.commitAllowingStateLoss();
+    }
+
+    public void replace(@IdRes int containerViewId, @NonNull Fragment fragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(containerViewId, fragment);
+        ft.commitAllowingStateLoss();
+    }
+
+    public void replace(@IdRes int containerViewId, @NonNull Fragment fragment, @Nullable String tag) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(containerViewId, fragment, tag);
+        ft.commitAllowingStateLoss();
+    }
+
+    public void remove(@NonNull Fragment fragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.remove(fragment);
+        ft.commitAllowingStateLoss();
+    }
+
+    /** 显示Fragment */
+    protected void showFragment(Fragment fragment) {
+        showFragment(fragment, 0, 0);
+    }
+
+    /**
+     * 以动画方式显示Fragment
+     *
+     * @param fragment 要显示的Fragment
+     * @param enter    进入动画
+     * @param exit     退出动画
+     */
+    protected void showFragment(Fragment fragment, @AnimRes int enter, @AnimRes int exit) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(enter, exit);
+        ft.show(fragment);
+        ft.commitAllowingStateLoss();
+    }
+
+    /** 隐藏Fragment */
+    protected void hideFragment(Fragment fragment) {
+        hideFragment(fragment, 0, 0);
+    }
+
+    /**
+     * 以动画方式隐藏Fragment
+     *
+     * @param fragment 要显示的Fragment
+     * @param enter    进入动画
+     * @param exit     退出动画
+     */
+    protected void hideFragment(Fragment fragment, @AnimRes int enter, @AnimRes int exit) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(enter, exit);
+        ft.hide(fragment);
+        ft.commitAllowingStateLoss();
+    }
+
+    private static class ActivityHandler extends Handler {
+        private final String TAG;
+        private WeakReference<BaseActivity> mActivity;
+
+        ActivityHandler(BaseActivity activity) {
+            TAG = String.format("%1$s$%2$s", activity.getClass().getSimpleName(), getClass().getSimpleName());
+            mActivity = new WeakReference<BaseActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            Timber.v(TAG, msg.toString());
+            BaseActivity activity = mActivity.get();
+            if (activity != null) {
+                activity.handleMessage(msg);
+            } else {
+                Timber.v(TAG, "Activity has already destroyed, message has been abandoned.");
+            }
+        }
     }
 }
