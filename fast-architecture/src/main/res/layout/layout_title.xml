@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/actionBarSize"
     android:background="@color/colorPrimary"
@@ -9,10 +9,10 @@
 
     <LinearLayout
         android:id="@+id/lyt_left"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left|center_vertical"
+        android:gravity="center"
+        android:layout_gravity="left"
         android:orientation="horizontal">
 
         <ImageView
@@ -35,10 +35,10 @@
 
     <LinearLayout
         android:id="@+id/lyt_title"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <ImageView
@@ -65,10 +65,10 @@
 
     <LinearLayout
         android:id="@+id/lyt_right"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="right|center_vertical"
+        android:gravity="center"
+        android:layout_gravity="right|center_vertical"
         android:orientation="horizontal">
 
         <ImageView
@@ -85,8 +85,9 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:visibility="gone"/>
+            android:paddingRight="10dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

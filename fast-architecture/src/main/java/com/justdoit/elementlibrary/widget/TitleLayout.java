@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class TitleLayout extends LinearLayout {
     public static final int BUTTON_RIGHT = 0x03;
 
     @BindView(R2.id.lyt_root)
-    LinearLayout mLytRoot;
+    FrameLayout mLytRoot;
     @BindView(R2.id.img_left)
     ImageView mImgLeft;
     @BindView(R2.id.tv_left)
