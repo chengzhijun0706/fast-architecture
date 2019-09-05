@@ -14,9 +14,6 @@
             android:name="com.justdoit.demo.config.GlobalConfiguration"
             android:value="ConfigModule" />
 
-        <activity android:name=".MainActivity">
-
-        </activity>
         <activity android:name=".mvp.ui.activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".mvp.ui.activity.TestActivity" />
     </application>
 
 </manifest>

@@ -15,16 +15,22 @@
  */
 package com.justdoit.elementlibrary.base.fragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.blankj.utilcode.util.BarUtils;
+import com.justdoit.elementlibrary.R;
 import com.justdoit.elementlibrary.base.delegate.IFragment;
 import com.justdoit.elementlibrary.integration.cache.Cache;
 import com.justdoit.elementlibrary.integration.cache.CacheType;
@@ -61,6 +67,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     private boolean isPrepared;
     private boolean isLoadedOnce;
 
+    private View mFakeStatusBar;
+
     @NonNull
     @Override
     public synchronized Cache<String, Object> provideCache() {
@@ -91,7 +99,9 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return initView(inflater, container, savedInstanceState);
+        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.fragment_base, container, false);
+        layout.addView(initView(inflater, container, savedInstanceState));
+        return layout;
     }
 
     @Override
@@ -101,6 +111,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
         beforeBindView();
         // Bind view
         ButterKnife.bind(this, view);
+
+        mFakeStatusBar = view.findViewById(R.id.fake_status_bar);
 
         isPrepared = true;
         if (getUserVisibleHint() && !isLoadedOnce) {
@@ -157,6 +169,11 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     @Override
     public void beforeBindView() {
 
+    }
+
+    public void setStatusBarColor(@ColorInt int color) {
+        BarUtils.setStatusBarColor(mFakeStatusBar, color);
+        BarUtils.setStatusBarLightMode((Activity) mContext, color == Color.WHITE);
     }
 
     /**

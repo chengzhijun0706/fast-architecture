@@ -16,12 +16,14 @@
 package com.justdoit.elementlibrary.base.activity;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
 import androidx.annotation.AnimRes;
 import androidx.annotation.CallSuper;
+import androidx.annotation.ColorInt;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +32,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.blankj.utilcode.util.BarUtils;
+import com.justdoit.elementlibrary.R;
 import com.justdoit.elementlibrary.base.delegate.IActivity;
 import com.justdoit.elementlibrary.base.fragment.BaseFragment;
 import com.justdoit.elementlibrary.integration.cache.Cache;
@@ -119,6 +123,14 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         mHelper = new ParallaxBackActivityHelper(this);
         mHelper.setBackEnable(useSlideBack());
         initData(savedInstanceState);
+
+        if (useImmersion()) {
+            BarUtils.setStatusBarColor(this, getStatusBarColor(), true);
+            BarUtils.setStatusBarLightMode(this, getStatusBarColor() == Color.WHITE);
+            if (userDefaultStatusBarHeightMargin()) {
+                BarUtils.addMarginTopEqualStatusBarHeight(getWindow().getDecorView().findViewById(android.R.id.content));
+            }
+        }
     }
 
     @Override
@@ -170,10 +182,33 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
 
     /**
      * 是否使用侧滑返回
-     * @return
      */
+    @Override
     public boolean useSlideBack() {
         return true;
+    }
+
+    /**
+     * 是否同化状态栏
+     */
+    @Override
+    public boolean useImmersion() {
+        return true;
+    }
+
+    /**
+     * 是否使用默认的状态栏高度margin
+     */
+    @Override
+    public boolean userDefaultStatusBarHeightMargin() {
+        return true;
+    }
+
+    /**
+     * 状态栏颜色,默认主题色
+     */
+    public @ColorInt int getStatusBarColor() {
+        return getResources().getColor(R.color.colorPrimary);
     }
 
     public void scrollToFinishActivity() {
@@ -246,31 +281,31 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         ft.commitAllowingStateLoss();
     }
 
-    public void add(@IdRes int containerViewId, @NonNull Fragment fragment, @Nullable String tag) {
+    public void addFragment(@IdRes int containerViewId, @NonNull Fragment fragment, @Nullable String tag) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(containerViewId, fragment, tag);
         ft.commitAllowingStateLoss();
     }
 
-    public void add(@NonNull Fragment fragment, @Nullable String tag) {
+    public void addFragment(@NonNull Fragment fragment, @Nullable String tag) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(fragment, tag);
         ft.commitAllowingStateLoss();
     }
 
-    public void replace(@IdRes int containerViewId, @NonNull Fragment fragment) {
+    public void replaceFragment(@IdRes int containerViewId, @NonNull Fragment fragment) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(containerViewId, fragment);
         ft.commitAllowingStateLoss();
     }
 
-    public void replace(@IdRes int containerViewId, @NonNull Fragment fragment, @Nullable String tag) {
+    public void replaceFragment(@IdRes int containerViewId, @NonNull Fragment fragment, @Nullable String tag) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(containerViewId, fragment, tag);
         ft.commitAllowingStateLoss();
     }
 
-    public void remove(@NonNull Fragment fragment) {
+    public void removeFragment(@NonNull Fragment fragment) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.remove(fragment);
         ft.commitAllowingStateLoss();

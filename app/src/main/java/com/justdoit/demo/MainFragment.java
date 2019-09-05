@@ -1,9 +1,11 @@
 package com.justdoit.demo;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.view.View;
 
 import com.justdoit.elementlibrary.base.fragment.BaseTitleFragment;
 import com.justdoit.elementlibrary.di.component.AppComponent;
@@ -26,11 +28,12 @@ public class MainFragment extends BaseTitleFragment {
         super.onViewCreated(view, savedInstanceState);
 
         getTitleLayout().setText(TitleLayout.BUTTON_CENTER,"标题");
+        setStatusBarColor(Color.WHITE);
     }
 
     @Override
     protected int getContentLayoutId() {
-        return 0;
+        return R.layout.fragment_test;
     }
 
     @Override

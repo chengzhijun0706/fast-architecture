@@ -103,4 +103,19 @@ public interface IActivity {
      */
     boolean useFragment();
 
+    /**
+     * 是否使用侧滑返回
+     */
+    boolean useSlideBack();
+
+    /**
+     * 是否同化状态栏
+     */
+    boolean useImmersion();
+
+    /**
+     * 是否使用默认的状态栏高度margin
+     */
+    boolean userDefaultStatusBarHeightMargin();
+
 }
